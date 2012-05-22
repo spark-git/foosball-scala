@@ -1,4 +1,4 @@
-Foosball application implemente in Scala
+Foosball application implemented in Scala
 
 Scala version:
 Authors:
