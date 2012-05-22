@@ -1,0 +1,88 @@
+@(playerForm: Form[User])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@title = {
+    Add player <small><a href="@routes.PlayerController.editForm">Or edit an existing user</a></small>
+}
+
+@main(title, nav = "addplayer") {
+    
+    @helper.form(action = routes.PlayerController.submit) {
+        
+        <fieldset>
+            <legend>Account informations</legend>
+            
+            @inputText(
+                playerForm("username"), 
+                '_label -> "Username", 
+                '_help -> "Please choose a valid username.",
+                '_error -> playerForm.globalError
+            )
+            
+            @inputText(
+                playerForm("email"), '_label -> "Email",
+                '_help -> "Enter a valid email address."
+            )
+            
+            @inputPassword(
+                playerForm("password.main"), 
+                '_label -> "Password",
+                '_help -> "A password must be at least 6 characters. "
+            )
+            
+            @inputPassword(
+                playerForm("password.confirm"), 
+                '_label -> "Repeat password",
+                '_help -> "Please repeat your password again.",
+                '_error -> playerForm.error("password")
+            )
+            
+            @inputText(
+                playerForm("handicap"), 
+                '_label -> "Handicap", 
+                '_help -> "Handicap from 1 to 5"
+ 
+            )
+            
+        </fieldset>
+        
+        <fieldset>
+            
+            <legend>Contact informations</legend>
+            
+            @select(
+                playerForm("profile.country"), 
+                options = options(Countries.list),
+                '_default -> "--- Choose a country ---",
+                '_label -> "Country",
+                '_error -> playerForm("profile.country").error.map(_.withMessage("Please select your country"))
+            )
+            
+            @inputText(
+                playerForm("profile.age"), 
+                '_label -> "Age", 'class -> "mini",
+                '_showConstraints -> false
+            )
+              
+        </fieldset>
+        
+        <fieldset>
+            
+            @checkbox(
+                playerForm("accept"), 
+                '_label -> None, '_text -> "You aggree the Terms and conditions",
+                '_showConstraints -> false
+            )
+            
+        </fieldset>
+        
+        <div class="actions">
+            <input type="submit" class="btn primary" value="Add player">
+            <a href="@routes.Application.index" class="btn">Cancel</a>
+        </div>
+        
+    }
+    
+}

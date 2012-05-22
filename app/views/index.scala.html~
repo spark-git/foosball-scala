@@ -1,0 +1,42 @@
+@main(Html("Admin")) {
+
+	<div>
+		<h2>Create a new user</h2>
+		<p>
+		   Create a new user for foosball tournament.
+		</p>
+		<p>
+			<a class="btn" href="@routes.SignUp.form">Create user»</a>
+		</p>
+    </div>
+	
+	<div>
+    <h2>Contact form</h2>
+		<p>
+			Demonstrate a contact manager that allow to add complex contact informations.
+		</p>
+		<p>
+			<a class="btn" href="@routes.Contacts.form">View sample »</a>
+		</p>
+	</div>
+	
+	<div>
+		<h2>Start tournament</h2>
+		<p>
+			Start tournament.
+		</p>
+		<p>
+			<a class="btn" href="@routes.Contacts.form">Start »</a>
+		</p>
+	</div>
+	
+	<div>
+		<h2>View table</h2>
+		<p>
+			View table
+		</p>
+		<p>
+			<a class="btn" href="@routes.Contacts.form">table »</a>
+		</p>
+    </div>
+}
