@@ -17,6 +17,7 @@ GET		/players/:id					controllers.PlayerController.get(id)
 POST	/players						controllers.PlayerController.create
 PUT		/players						controllers.PlayerController.create
 POST	/players/:id					controllers.PlayerController.update(id)
+GET     /players/test/create            controllers.PlayerController.createTestPlayers
 
 
 

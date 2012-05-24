@@ -100,7 +100,7 @@ object PlayerController extends Controller {
    * List all the players 
    */
   def list = Action {
-      Ok(Json.toJson(User.listUsers())); 
+      Ok(html.addplayer.players(User.listUsers())); 
   }
   
   /**
@@ -119,6 +119,13 @@ object PlayerController extends Controller {
   
   def update(id:String) = Action {
      Ok("Updating the player with the id: " + id); 
+  }
+  
+  def createTestPlayers() = Action {
+      for (i <- 1.to(10)) {
+           User.addUser(new User("player-" + i, "player-" + i, "pw", "e", 1, null))
+      }
+      Ok("Added Users")
   }
   
 }

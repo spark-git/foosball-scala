@@ -21,6 +21,10 @@ case class UserProfile(
 
 object User {
     
+    /**
+     * This implicit object allow the serialization of the user 
+     * to JSON
+     */
     implicit object UserFormat extends Format[User] {
     	def reads(json: JsValue): User = null
     	def writes(user: User): JsValue = JsObject(List("blah" -> JsString(user.name)))
