@@ -6,9 +6,19 @@
 GET     /                           controllers.Application.index
 
 # Player
-GET     /addplayer                     controllers.PlayerController.form
+GET     /addplayer                  controllers.PlayerController.form
 GET     /users/fakeuser             controllers.PlayerController.editForm
-POST    /addplayer                     controllers.PlayerController.submit
+POST    /addplayer                  controllers.PlayerController.submit
+
+# Player 
+GET		/players						controllers.PlayerController.list
+GET		/players/:id					controllers.PlayerController.get(id)
+# Just use PUT?
+POST	/players						controllers.PlayerController.create
+PUT		/players						controllers.PlayerController.create
+POST	/players/:id					controllers.PlayerController.update(id)
+
+
 
 
 

@@ -4,10 +4,9 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
-
 import views._
-
 import models._
+import play.api.libs.json.Json
 
 object PlayerController extends Controller {
   
@@ -51,15 +50,15 @@ object PlayerController extends Controller {
     // so we have to define custom binding/unbinding functions
     {
       // Binding: Create a User from the mapping result (ignore the second password and the accept field)
-      (username, email, passwords, handicap, profile, _) => User(username, passwords._1, email, handicap, profile) 
+      (username, email, passwords, handicap, profile, _) => User(username, username, passwords._1, email, handicap, profile) 
     } 
     {
       // Unbinding: Create the mapping values from an existing User value
-      user => Some(user.username, user.email, (user.password, ""), user.handicap, user.profile, false)
+      user => Some(user.name, user.email, (user.password, ""), user.handicap, user.profile, false)
     }.verifying(
       // Add an additional constraint: The username must not be taken (you could do an SQL request here)
       "This username is not available",
-      user => !Seq("admin", "guest").contains(user.username)
+      user => !Seq("admin", "guest").contains(user.name)
     )
   )
   
@@ -74,7 +73,7 @@ object PlayerController extends Controller {
    * Display a form pre-filled with an existing User.
    */
   def editForm = Action {
-    val existingUser = User(
+    val existingUser = User("id",
       "Insert user", "secret", "Insert email", 5,
       UserProfile("France", Some(30))
     )
@@ -90,8 +89,36 @@ object PlayerController extends Controller {
       errors => BadRequest(html.addplayer.form(errors)),
       
       // We got a valid User value, display the summary
-      user => Ok(html.addplayer.summary(user))
+      user => {
+        User.addUser(user)
+        Ok(html.addplayer.summary(user))  
+      }
     )
+  }
+  
+  /**
+   * List all the players 
+   */
+  def list = Action {
+      Ok(Json.toJson(User.listUsers())); 
+  }
+  
+  /**
+   * Get information for the given player
+   */
+  def get(id:String) = Action {
+      Ok("Getting player with id: " + id)
+  }
+  
+  /**
+   * Create a new player
+   */
+  def create() = Action {
+      Ok("Creating a new player");
+  }
+  
+  def update(id:String) = Action {
+     Ok("Updating the player with the id: " + id); 
   }
   
 }
