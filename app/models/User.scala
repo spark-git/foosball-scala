@@ -33,10 +33,12 @@ object User {
     val USERS = scala.collection.mutable.Map[String, User]()
     
     def listUsers(): Seq[User] = {
+	println(USERS.values.toList)
         USERS.values.toList;
     }
     
     def addUser(user:User) = {
+	println(user)
         USERS(user.id) = user
     }
 }

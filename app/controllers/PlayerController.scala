@@ -16,8 +16,10 @@ object PlayerController extends Controller {
    * Once defined it handle automatically, ,
    * validation, submission, errors, redisplaying, ...
    */
+   var cont: Integer = 0
+   
   val playerForm: Form[User] = Form(
-    
+  
     // Define a mapping that will handle User values
     mapping(
       "username" -> text(minLength = 4),
@@ -100,6 +102,8 @@ object PlayerController extends Controller {
    * List all the players 
    */
   def list = Action {
+  //User.addUser(new User("player-" + cont, "player-" + cont, "pw", "e", cont, null))
+  //cont += 1
       Ok(html.addplayer.players(User.listUsers())); 
   }
   
@@ -123,7 +127,7 @@ object PlayerController extends Controller {
   
   def createTestPlayers() = Action {
       for (i <- 1.to(10)) {
-           User.addUser(new User("player-" + i, "player-" + i, "pw", "e", 1, null))
+           User.addUser(new User("player-" + i, "player-" + i, "pw", "e", 1%5, null))
       }
       Ok("Added Users")
   }
