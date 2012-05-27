@@ -16,7 +16,6 @@ object PlayerController extends Controller {
    * Once defined it handle automatically, ,
    * validation, submission, errors, redisplaying, ...
    */
-   var cont: Integer = 0
    
   val playerForm: Form[User] = Form(
   
@@ -104,8 +103,6 @@ object PlayerController extends Controller {
    * List all the players 
    */
   def list = Action {
-  //User.addUser(new User("player-" + cont, "player-" + cont, "pw", "e", cont, null))
-  //cont += 1
       Ok(html.addplayer.players(User.listUsers())); 
   }
   
