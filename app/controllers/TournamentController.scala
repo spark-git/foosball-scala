@@ -8,10 +8,14 @@ import models._
 
 object TournamentController extends Controller {
   
-  def tournament = Action {
+  def start = Action {
     if(Team.listTeams().size == 0){
 	Team.generateTeams(User.listUsers())
     }
+    Ok(html.tournament.start(Team.listTeams()));
+  }
+  
+  def view = Action {
     Ok(html.tournament.start(Team.listTeams()));
   }
   

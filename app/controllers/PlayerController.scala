@@ -98,12 +98,14 @@ object PlayerController extends Controller {
     )
   }
   
+
+  
   /**
    * List all the players 
    */
   def list = Action {
-  //User.addUser(new User("player-" + cont, "player-" + cont, "pw", "e", cont, null))
-  //cont += 1
+  User.addUser(new User("player-" + cont, "player-" + cont, "pw", "e", cont, null))
+  cont += 1
       Ok(html.addplayer.players(User.listUsers())); 
   }
   

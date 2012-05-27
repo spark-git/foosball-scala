@@ -35,6 +35,7 @@ object Team {
     }
     
     def generateTeams(players: Seq[User]) {
+    
       println(" players.size:  "+players.size)
       for(i <-0 until players.size/2){
 	println("i  "+i)

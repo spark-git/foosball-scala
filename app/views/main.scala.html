@@ -17,10 +17,10 @@
                     <a class="brand" href="@routes.Application.index()">Foosball</a>
                     <ul class="nav">
                         <li class="@("active".when(nav == "addplayer"))">
-                            <a href="@routes.PlayerController.form">Add player</a>
+                            <a href="@routes.PlayerController.list">Players</a>
                         </li>
                         <li class="@("active".when(nav == "table"))">
-                            <a href="">Table</a>
+                            <a href="@routes.TournamentController.view">Table</a>
                         </li>
                     </ul>
                 </div>
