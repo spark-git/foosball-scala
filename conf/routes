@@ -19,8 +19,8 @@ PUT		/players						controllers.PlayerController.create
 POST	/players/:id					controllers.PlayerController.update(id)
 GET     /players/test/create            controllers.PlayerController.createTestPlayers
 
-
-
+# Tournament
+GET     /tournament                  controllers.TournamentController.tournament
 
 
 # Map static resources from the /public folder to the /assets URL path
