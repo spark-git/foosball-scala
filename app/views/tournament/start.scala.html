@@ -60,21 +60,23 @@
     		</tr>
     	</thead>
     	<tbody>
-			@for( m <- league(0)) {
-				<tr>
-					<td>
-						<a href="#">@m.team1.name</a>
-					</td>
-					<td>
-						<a href="#">@m.team2.name</a>
-					</td>
-					<td>
-						<input type="text" >
-					</td>
-					<td>
-						<input type="text" >
-					</td>
-				</tr>
+			@if(league.size > 0){
+				@for( m <- league(0)) {
+					<tr>
+						<td>
+							<a href="#">@m.team1.name</a>
+						</td>
+						<td>
+							<a href="#">@m.team2.name</a>
+						</td>
+						<td>
+							<input type="text" >
+						</td>
+						<td>
+							<input type="text" >
+						</td>
+					</tr>
+				}
 			}
     	</tbody>
     </table>
