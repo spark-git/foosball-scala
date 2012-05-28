@@ -12,7 +12,8 @@ case class Team(
 
   player1: User,
   player2: User,
-  name: String)
+  name: String,
+  pts: Integer)
 
 object Team {
 
@@ -37,7 +38,7 @@ object Team {
 
     for (i <- 0 until players.size / 2) {
 
-      Team.addTeam(new Team(players(i * 2), players((i * 2) + 1), "team-" + i))
+      Team.addTeam(new Team(players(i * 2), players((i * 2) + 1), "team-" + i,0))
 
     }
   }
