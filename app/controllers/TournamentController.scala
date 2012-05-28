@@ -20,15 +20,15 @@ object TournamentController extends Controller {
       }
       League.generateLeague(Team.listTeams());
       
-      Ok(html.tournament.start(Team.listTeams()));
+      Ok(html.tournament.start(Team.listTeams(),League.getWeek(0)));
   }
   
   def view = Action {
-    Ok(html.tournament.start(Team.listTeams()));
+    Ok(html.tournament.start(Team.listTeams(),League.getWeek(0)));
   }
   
   def matches = Action {
-    Ok(html.tournament.matches(League.getWeek(0)));
+    Ok(html.tournament.matches(League.LEAGUE));
   }
   
 }

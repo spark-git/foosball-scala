@@ -1,4 +1,4 @@
-@(teams: Seq[Team])
+@(teams: Seq[Team], matches: Seq[Match])
 
 
 
@@ -34,6 +34,38 @@
 					</td>
 					<td>
 						0
+					</td>
+				</tr>
+			}
+    	</tbody>
+    </table>
+    
+     <h3>Match Weeks</h3>
+    <table class="table table-striped table-bordered table-condensed">
+    	<thead>
+    		<tr>
+    			<th>Team 1</th>
+    			<th>Team 2</th>
+			<th colspan="2" style="align:center" >Score</th>
+
+			
+			
+    		</tr>
+    	</thead>
+    	<tbody>
+			@for( m <- matches) {
+				<tr>
+					<td>
+						<a href="#">@m.team1.name</a>
+					</td>
+					<td>
+						<a href="#">@m.team2.name</a>
+					</td>
+					<td>
+						<input type="text" >
+					</td>
+					<td>
+						<input type="text" >
 					</td>
 				</tr>
 			}
