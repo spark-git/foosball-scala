@@ -22,6 +22,7 @@ GET     /players/test/create            controllers.PlayerController.createTestP
 # Tournament
 GET     /starttournament                  controllers.TournamentController.start
 GET     /tournament                  controllers.TournamentController.view
+GET     /tournament/:id                  controllers.TournamentController.viewWeek(id)
 GET     /matches                  controllers.TournamentController.matches
 
 

@@ -1,7 +1,13 @@
-@(teams: Seq[Team], league: scala.collection.mutable.LinkedHashMap[Integer,scala.collection.mutable.ListBuffer[Match]])
+@(teams: Seq[Team], week: Integer, league: scala.collection.mutable.LinkedHashMap[Integer,scala.collection.mutable.ListBuffer[Match]])
 
 
-
+ <script type="text/javascript">
+       function reload(){
+	    var v_week = document.getElementById('selectWeek').value;
+	    var url = '/tournament/'+v_week;
+	    location.href=url;
+	}
+ </script>
 
 @main(Html("Tournament")) {
 
@@ -18,33 +24,33 @@
     		</tr>
     	</thead>
     	<tbody>
-			@for(team <- teams) {
+			@for(it <- 0 until teams.size) {
 				<tr>
 					<td>
-						1
+						@(it+1)
 					</td>
 					<td>
-						<a href="#">@team.name</a>
+						<a href="#">@teams(it).name</a>
 					</td>
 					<td>
-						<a href="#">@team.player1.name</a>
+						<a href="#">@teams(it).player1.name</a>
 					</td>
 					<td>
-						<a href="#">@team.player2.name</a>
+						<a href="#">@teams(it).player2.name</a>
 					</td>
 					<td>
-						@team.pts
+						@teams(it).pts
 					</td>
 				</tr>
 			}
     	</tbody>
     </table>
-    
-    <select name="SelectTagActionForm"  size="1"  onchange="@routes.TournamentController.matches">
+   <form action="#"> 
+   <select id="selectWeek" name="week"  size="1"  onchange="reload();">
 
-	@for(week <- 0 until league.size) {
-	  <option value="@week">Week @week</option>
-
+	@for(w <- 0 until league.size) {
+	  @if(week == w){<option  selected value="@w">Week @w</option>}
+	  @if(week != w){<option value="@w">Week @w</option>}
 	}
    </select>
     
@@ -60,9 +66,9 @@
     		</tr>
     	</thead>
     	<tbody>
-			@if(league.size > 0){
-				@for( m <- league(0)) {
-					<tr>
+			@if(league.size > week){
+				@for( m <- league(week)) {
+					<tr id="week0">
 						<td>
 							<a href="#">@m.team1.name</a>
 						</td>
@@ -80,7 +86,10 @@
 			}
     	</tbody>
     </table>
-    
+     <div class="actions">
+            <input type="submit" class="btn primary" value="Save">
+     </div>
+    </form>
 
 
 	
