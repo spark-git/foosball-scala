@@ -1,4 +1,4 @@
-@(teams: Seq[Team], matches: Seq[Match])
+@(teams: Seq[Team], league: scala.collection.mutable.LinkedHashMap[Integer,scala.collection.mutable.ListBuffer[Match]])
 
 
 
@@ -40,7 +40,14 @@
     	</tbody>
     </table>
     
-     <h3>Match Weeks</h3>
+    <select name="SelectTagActionForm"  size="1"  onchange="@routes.TournamentController.matches">
+
+	@for(week <- 0 until league.size) {
+	  <option value="@week">Week @week</option>
+
+	}
+   </select>
+    
     <table class="table table-striped table-bordered table-condensed">
     	<thead>
     		<tr>
@@ -53,7 +60,7 @@
     		</tr>
     	</thead>
     	<tbody>
-			@for( m <- matches) {
+			@for( m <- league(0)) {
 				<tr>
 					<td>
 						<a href="#">@m.team1.name</a>
