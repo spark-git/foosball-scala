@@ -1,0 +1,44 @@
+@(league: scala.collection.mutable.LinkedHashMap[Integer,scala.collection.mutable.ListBuffer[Match]])
+
+@main(Html("Matches")) {
+
+     @for(week <- 0 until league.size) {
+     <div class="page-header" style="padding-top:20px">
+	Week @week
+     </div>
+    <table class="table table-striped table-bordered table-condensed">
+    
+	
+    	<thead>
+    		<tr>
+    			<th>Team 1</th>
+    			<th>Team 2</th>
+			<th colspan="1" style="align:center" >Score</th>
+
+			
+			
+    		</tr>
+    	</thead>
+    	<tbody>
+			@for( m <- league(week)) {
+				<tr>
+					<td>
+						<a href="#">@m.team1.name</a>
+					</td>
+					<td>
+						<a href="#">@m.team2.name</a>
+					</td>
+					<td>
+						@if(m.score != null){
+							<a href="#">@m.score.goals1 -- @m.score.goals2 </a>
+						}
+					</td>
+					
+				</tr>
+			}
+    	</tbody>
+	
+    </table>
+    
+    }
+}
