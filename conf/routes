@@ -22,7 +22,7 @@ GET     /players/test/create            controllers.PlayerController.createTestP
 # Tournament
 GET     /starttournament                  controllers.TournamentController.start
 GET     /tournament                  controllers.TournamentController.view
-
+GET     /matches                  controllers.TournamentController.matches
 
 
 # Map static resources from the /public folder to the /assets URL path
