@@ -5,6 +5,12 @@
 # Home page
 GET     /                           controllers.Application.index
 
+# Login
+GET     /login                      controllers.Login.login
+GET     /login/openid               controllers.Login.openIDCallback
+POST    /login                      controllers.Login.loginPost
+GET     /login/google               controllers.Login.loginGoogle
+
 # Player
 GET     /addplayer                  controllers.PlayerController.form
 GET     /users/fakeuser             controllers.PlayerController.editForm
