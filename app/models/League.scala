@@ -1,27 +1,12 @@
 package models
 import scala.collection.mutable.ListBuffer
 
-case class Match(
-      
-   team1: Team, 
-   team2: Team,
-   score: Score
-      
-  )
-  
-  case class Score(
-  
-      goals1: Integer,
-      goals2: Integer
-  )
+
   
 object League {
 
-  
-  
-  
-  
-  val LEAGUE = scala.collection.mutable.LinkedHashMap[Integer,ListBuffer[Match]]()
+
+  var LEAGUE = scala.collection.mutable.LinkedHashMap[Integer,ListBuffer[Match]]()
   
   
   def generateLeague(teamsSeq: Seq[Team]){
@@ -39,7 +24,7 @@ object League {
 	    	var list : ListBuffer[Match] = ListBuffer()
 	    	for(j <- 0 until teams.size/2){
 	    		
-	    		list += new Match(teams(j),teams(teams.size-1-j),null)
+	    		list += new Match(teams(j),teams(teams.size-1-j),new Score(null, null))
 		    }
 	    	moveTeams(teams)
 	    	LEAGUE(i) = list
@@ -48,6 +33,15 @@ object League {
     }
     
   }
+  
+  def saveMatch(week: Integer, matchId: Integer, goals1: Integer, goals2: Integer)  {
+    
+    
+    
+    LEAGUE(week)(matchId).score = new Score(goals1, goals2);
+    
+  }
+  
   
   def getWeek(week: Integer): Seq[Match] = {
       
