@@ -9,13 +9,8 @@ import models._
 import scala.collection.mutable.HashMap
 import scala.collection.immutable.List
 
-
-
 object TournamentController extends Controller {
 
-
-  
-  
   def start = Action {
 
     if (User.listUsers.size == 0) {
@@ -45,25 +40,19 @@ object TournamentController extends Controller {
   }
 
 
-    
-   def sayHello(myName:String) = {
-    
-   }
-  
   def save() = Action { request =>
 
-   val week : Integer = request.body.asFormUrlEncoded.get("week")(0).toInt;
-   val listScore1 : Seq[String] = request.body.asFormUrlEncoded.get("score1_"+week)
-   val listScore2 : Seq[String] = request.body.asFormUrlEncoded.get("score2_"+week)
+    val week: Integer = request.body.asFormUrlEncoded.get("week")(0).toInt;
+    val listScore1: Seq[String] = request.body.asFormUrlEncoded.get("score1_" + week)
+    val listScore2: Seq[String] = request.body.asFormUrlEncoded.get("score2_" + week)
 
-   for(i<- 0 until listScore1.size){
-	   
-     if(listScore1(i) != null && listScore2(i) != null && !listScore1(i).equals("") && !listScore1(i).equals("") ){
-    	 League.saveMatch(week, i, listScore1(i).toInt, listScore2(i).toInt)
-     }
-   }
-   Ok(html.tournament.start(Team.listTeams(), week, League.LEAGUE));
+    for (i <- 0 until listScore1.size) {
+
+      if (listScore1(i) != null && listScore2(i) != null && !listScore1(i).equals("") && !listScore1(i).equals("")) {
+        League.saveMatch(week, i, listScore1(i).toInt, listScore2(i).toInt)
+      }
+    }
+    Ok(html.tournament.start(Team.listTeams(), week, League.LEAGUE));
   }
-
 
 }

@@ -9,6 +9,13 @@ object League {
   var LEAGUE = scala.collection.mutable.LinkedHashMap[Integer,ListBuffer[Match]]()
   
   
+  /**
+   * Generate league. 
+   * 
+   * REFACTORRRRRRRRRRR
+   *
+   * @param teamsSeq the teams seq
+   */
   def generateLeague(teamsSeq: Seq[Team]){
     
     if(teamsSeq.size > 0){
@@ -34,15 +41,28 @@ object League {
     
   }
   
+  /**
+   * Save match.
+   *
+   * @param week the week
+   * @param matchId the match id
+   * @param goals1 the goals1
+   * @param goals2 the goals2
+   */
   def saveMatch(week: Integer, matchId: Integer, goals1: Integer, goals2: Integer)  {
-    
-    
-    
+
     LEAGUE(week)(matchId).score = new Score(goals1, goals2);
     
   }
   
   
+  /**
+   * Gets the week.
+   *
+   * @param week the week
+   * 
+   * @return List with all the matches associated to week
+   */
   def getWeek(week: Integer): Seq[Match] = {
       
       if(LEAGUE.isEmpty) Seq()
@@ -50,6 +70,14 @@ object League {
    }
   
   
+  
+  /**
+   * Move teams.
+   *
+   *  REFACTOR. Find out a better way
+   *
+   * @param teams the teams
+   */
   def moveTeams(teams: ListBuffer[Team]){
     
     val team = teams(teams.size-2)
