@@ -6,11 +6,11 @@ import play.api.libs.json.Format
 
 case class User(
   id: String,
-  name: String, 
-  password: String,
-  email: String,
-  handicap: Integer,
-  profile: UserProfile
+  name: String = "", 
+  password: String = "",
+  email: String = "",
+  handicap: Integer = 0,
+  profile: UserProfile = null
 )
 
 case class UserProfile(

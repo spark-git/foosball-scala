@@ -8,10 +8,11 @@ import play.api.data.Forms._
 import play.api.libs.openid.OpenID
 import play.api.libs.concurrent.Redeemed
 import play.api.libs.concurrent.Thrown
+import models.User
 
-object Login extends Controller {
+object Login extends Controller with UserContext {
 
-    def login = Action {
+    def login = Action { implicit request =>
         Ok(views.html.login())
     }
 
@@ -50,7 +51,9 @@ object Login extends Controller {
     def openIDCallback = Action { implicit request =>
         AsyncResult(
             OpenID.verifiedId.extend(_.value match {
-                case Redeemed(info) => Ok(info.id + "\n" + info.attributes)
+                case Redeemed(info) => {
+                    Ok(info.id + "\n" + info.attributes).withSession(session + (Security.username -> info.id))
+                }
                 case Thrown(t) => {
                     // Here you should look at the error, and give feedback to the user
                     Redirect(routes.Login.login)

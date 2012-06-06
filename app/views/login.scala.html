@@ -1,8 +1,31 @@
-@main(Html("Admin")) {
-
-	@helper.form(action = routes.Login.loginPost) {
+@()(implicit user: Option[User])
+@title = { <h6>Login</h6> } 
+@main(title) {
     
-	    <input name="openid" id="openid"/>
+    <div>
+		@if(user.isEmpty) {
+		    Not logged in
+		} else {
+			@user.get.id
+		}
+	</div>
+    
+    <div id="header">
+		<a style="background: #fff url(http://cdn.sstatic.net/Img/openid/openid-logos.png) no-repeat;display: block;height: 62px;width: 102px;" 
+			href="@routes.Login.loginGoogle">
+			<span style="visibility: hidden">Login with Google</span>
+		</a>
+	</div>
+	
+    <br/>
+    
+    <p>
+		You can also use another openid:
+	</p>
+    @helper.form(action = routes.Login.loginPost) {
+    
+	    <input class="input-xlarge" name="openid" id="openid"/>
+        <input class="btn btn-primary" style="vertical-align:top" type="submit" value="Log in"/>
     
 	}
 }
