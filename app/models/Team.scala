@@ -23,7 +23,7 @@ object Team {
     def writes(team: Team): JsValue = JsObject(List("blah" -> JsString(team.name)))
   }
 
-  val TEAMS = scala.collection.mutable.Map[String, Team]()
+  var TEAMS = scala.collection.mutable.Map[String, Team]()
 
   def listTeams(): Seq[Team] = {
     println(TEAMS.values.toList)
