@@ -97,8 +97,6 @@ object PlayerController extends Controller {
     )
   }
   
-
-  
   /**
    * List all the players 
    */
@@ -110,7 +108,7 @@ object PlayerController extends Controller {
    * Get information for the given player
    */
   def get(id:String) = Action {
-      Ok("Getting player with id: " + id)
+      Ok(html.addplayer.profile.apply(null))
   }
   
   /**
