@@ -2,6 +2,7 @@ package models
 
 case class Match(
       
+   id: Integer,
    team1: Team, 
    team2: Team,
    var score: Score

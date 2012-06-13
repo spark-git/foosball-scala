@@ -31,7 +31,7 @@ object League {
 	    	var list : ListBuffer[Match] = ListBuffer()
 	    	for(j <- 0 until teams.size/2){
 	    		
-	    		list += new Match(teams(j),teams(teams.size-1-j),new Score(null, null))
+	    		list += new Match(j, teams(j), teams(teams.size-1-j),new Score(null, null))
 		    }
 	    	moveTeams(teams)
 	    	LEAGUE(i) = list

@@ -1,4 +1,4 @@
-@(teams: Seq[Team], week: Integer, league: scala.collection.mutable.LinkedHashMap[Integer,scala.collection.mutable.ListBuffer[Match]])
+@(teams: Seq[Team], weekSelected: Integer, league: scala.collection.mutable.LinkedHashMap[Integer,scala.collection.mutable.ListBuffer[Match]])
 
 
  <script type="text/javascript">
@@ -50,14 +50,14 @@
 	   <select id="selectWeek" name="week"  size="1"  onchange="changeWeek();" >
 	
 		@for(w <- 0 until league.size) {
-		  @if(week == w){<option  selected value="@w">Week @w</option>}
-		  @if(week != w){<option value="@w">Week @w</option>}
+		  @if(weekSelected == w){<option  selected value="@w">Week @w</option>}
+		  @if(weekSelected != w){<option value="@w">Week @w</option>}
 		}
 	   </select>
 	   
 							
 		@for(w <- 0 until league.size) {	
-		<div id="week_@w" @if(w != week){style="display:none"} class="week_table">		
+		<div id="week_@w" @if(w != weekSelected){style="display:none"} class="week_table">		
 		    <table class="table table-striped table-bordered table-condensed">
 		    	<thead>
 		    		<tr>
@@ -68,6 +68,7 @@
 		    		</tr>
 		    	</thead>
 		    	<tbody>
+		    			
 						@for( m <- league(w)) {
 							<tr>
 								<td>
@@ -77,13 +78,12 @@
 									<a href="#">@m.team2.name</a>
 								</td>
 								<td>
-
-									<input style="width: 40px; padding: 2px;height:20px" type="text"  name="score1_@w" value="@m.score.goals1"  @if(m.score.goals1 != null) {disabled="disabled"} />
+									<input style="width: 40px; padding: 2px;height:20px" type="text"  name="score1_@w" value="@m.score.goals1"  @if(m.score.goals1 != null || m.team2.name == "FREE") {disabled="disabled"} />
 									&nbsp;-&nbsp;
-									<input style="width: 40px; padding: 2px;height:20px" type="text"  type="text"   name="score2_@w" value="@m.score.goals2" @if(m.score.goals1 != null) {disabled="disabled"}/>
-
+									<input style="width: 40px; padding: 2px;height:20px" type="text"  name="score2_@w" value="@m.score.goals2" @if(m.score.goals2 != null || m.team2.name == "FREE") {disabled="disabled"}/>
+									<input type="hidden" name="match_@w" value="@m.id" @if(m.score.goals2 != null || m.team2.name == "FREE") {disabled="disabled" }/>
+									
 								</td>
-
 							</tr>
 						}
 		    	</tbody>

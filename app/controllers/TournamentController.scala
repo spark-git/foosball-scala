@@ -9,8 +9,19 @@ import models._
 import scala.collection.mutable.HashMap
 import scala.collection.immutable.List
 
+
 object TournamentController extends Controller {
 
+  val WEEK_PARAM_NAME = "week"
+  val SCORE1_PARAM_NAME = "score1_"
+  val SCORE2_PARAM_NAME = "score2_"
+  val MATCH_PARAM_NAME = "match_"
+  
+  /**
+   * Start.
+   *
+   * @return the play.api.mvc. action
+   */
   def start = Action {
 
     if (User.listUsers.size == 0) {
@@ -26,33 +37,65 @@ object TournamentController extends Controller {
     Ok(html.tournament.start(Team.listTeams(), 0, League.LEAGUE));
   }
 
+  /**
+   * View.
+   *
+   * @return the play.api.mvc. action
+   */
   def view = Action {
 
     Ok(html.tournament.start(Team.listTeams(), 0, League.LEAGUE));
   }
 
+  /**
+   * View week.
+   *
+   * @param id the id
+   * @return the play.api.mvc. action
+   */
   def viewWeek(id: String) = Action {
     Ok(html.tournament.start(Team.listTeams(), id.toInt, League.LEAGUE));
   }
 
+  /**
+   * Matches.
+   *
+   * @return the play.api.mvc. action
+   */
   def matches = Action {
     Ok(html.tournament.matches(League.LEAGUE));
   }
 
 
+  /**
+   * Save. REFACTOR!!
+   *
+   * @return the play.api.mvc. action
+   */
   def save() = Action { request =>
-
-    val week: Integer = request.body.asFormUrlEncoded.get("week")(0).toInt;
-    val listScore1: Seq[String] = request.body.asFormUrlEncoded.get("score1_" + week)
-    val listScore2: Seq[String] = request.body.asFormUrlEncoded.get("score2_" + week)
-
-    for (i <- 0 until listScore1.size) {
-
-      if (listScore1(i) != null && listScore2(i) != null && !listScore1(i).equals("") && !listScore1(i).equals("")) {
-        League.saveMatch(week, i, listScore1(i).toInt, listScore2(i).toInt)
-      }
+    
+  	val week = request.body.asFormUrlEncoded.get(WEEK_PARAM_NAME)(0).toInt;
+    try{
+	    var j: Int = 0
+	    val listScore1: Seq[String] = request.body.asFormUrlEncoded.get(SCORE1_PARAM_NAME + week)
+	    val listScore2: Seq[String] = request.body.asFormUrlEncoded.get(SCORE2_PARAM_NAME + week)
+	    val matchId:  Seq[String] = request.body.asFormUrlEncoded.get(MATCH_PARAM_NAME + week)
+	    
+	    if(listScore1 != null)
+		    matchId.foreach{m=>
+		      if (listScore1(j) != null && listScore2(j) != null && !listScore1(j).equals("") && !listScore1(j).equals("")) {
+		        League.saveMatch(week, m.toInt, listScore1(j).toInt, listScore2(j).toInt)
+		      }
+		      j+=1
+		}
+	    Ok(html.tournament.start(Team.listTeams(), week, League.LEAGUE));
     }
-    Ok(html.tournament.start(Team.listTeams(), week, League.LEAGUE));
+    catch{
+      case e: Exception =>{
+         println(e)
+        Ok(html.tournament.start(Team.listTeams(), week, League.LEAGUE))
+       }
+    }
   }
 
 }
